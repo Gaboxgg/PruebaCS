@@ -32,12 +32,6 @@ public class BreedFragment extends Fragment {
     private String breedName;
 
     @BindView(R.id.list) ListView listView;
-//    @BindView(R.id.priority) TextView priorityTxtV;
-//    @BindView(R.id.requestDate) TextView requestDateTxtV;
-//    @BindView(R.id.compromisedDate) TextView compromisedDateTxtV;
-//    @BindView(R.id.mdNumber) TextView mdNumberTxtV;
-//    @BindView(R.id.requestRepr) TextView requestReprTxtV;
-//    @BindView(R.id.observation) TextView observationTxtV;
 
     public BreedFragment() { }
 
@@ -57,14 +51,17 @@ public class BreedFragment extends Fragment {
 
         BreedUtils.getBreedPics(breedName,BreedList -> {
 
-            String [] decodedBreedPics = GeneralUtils.decodeResponse(BreedList);
-            List<String> listPics = GeneralUtils.arrayToList(decodedBreedPics);
-            BreedPicsAdapter adapter = new BreedPicsAdapter(getActivity(),
-                    R.layout.breed_list_pics, listPics
+            if ( BreedList!=null ) {
 
-                    );
-            listView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
+                String[] decodedBreedPics = GeneralUtils.decodeResponse(BreedList);
+                List<String> listPics = GeneralUtils.arrayToList(decodedBreedPics);
+                BreedPicsAdapter adapter = new BreedPicsAdapter(getActivity().getApplicationContext(),
+                        R.layout.breed_list_pics, listPics
+
+                );
+                listView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
 
         });
 
@@ -85,7 +82,7 @@ public class BreedFragment extends Fragment {
         activity = (AppCompatActivity) getActivity();
 
         if (activity != null && breedName != null) {
-            String title = "Raza :"+breedName;
+            String title = "Raza : "+breedName;
 
             if(activity.getSupportActionBar() != null)
                 activity.getSupportActionBar().setTitle(title);

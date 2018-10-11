@@ -40,13 +40,13 @@ public class BreedCardAdapter extends RecyclerView.Adapter<ViewHolder> {
         final String breed = breedList[position];
 
 
-        holder.requestNumber.setText(String.valueOf(position));
+        holder.requestCode.setText(String.valueOf(position));
 
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 
         holder.requestDate.setText(format1.format(cal.getTime()));
-        holder.requestType.setText(breedList[position]);
+        holder.breedName.setText(breedList[position]);
 
 
         if(breedCardViewClick != null)

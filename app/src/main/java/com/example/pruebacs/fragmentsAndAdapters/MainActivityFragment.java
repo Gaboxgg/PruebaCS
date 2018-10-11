@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.pruebacs.R;
 import com.example.pruebacs.activities.BreedActivity;
@@ -23,6 +24,8 @@ import com.example.pruebacs.utils.GeneralUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -30,15 +33,7 @@ public class MainActivityFragment extends Fragment implements BreedCardViewClick
 
     private BreedCardAdapter breedCardAdapter;
 
-    private int position;
-//    private TabCallback tabCallback;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private String [] breedList;
-
-//    private int lastSize;
-//
-    private final static String BREED_NAME = "breedName";
-    private final static String POSITION_KEY = "position";
+    @BindView(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
 
     public MainActivityFragment() { }
 
@@ -51,20 +46,29 @@ public class MainActivityFragment extends Fragment implements BreedCardViewClick
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if(swipeRefreshLayout !=null ){
+            swipeRefreshLayout.setRefreshing(false);
+            swipeRefreshLayout.setEnabled(false);
+        }
+
+
         if(getArguments() == null){
 
             BreedUtils.getBreedList(BreedList -> {
-                String [] breedList = GeneralUtils.decodeResponse(BreedList);
 
-                breedCardAdapter = new BreedCardAdapter(breedList,
-                        breedCard -> startActivity(BreedActivity.get(getActivity(), breedList[0])));
+                if(BreedList != null) {
+                    String[] breedList = GeneralUtils.decodeResponse(BreedList);
 
-                RecyclerView recyclerView = swipeRefreshLayout.findViewById(R.id.list);
-                recyclerView.removeAllViews();
-                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(breedCardAdapter);
-                breedCardAdapter.notifyDataSetChanged();
+                    breedCardAdapter = new BreedCardAdapter(breedList,
+                            breedCard -> startActivity(BreedActivity.get(getActivity(), breedCard)));
+
+                    RecyclerView recyclerView = swipeRefreshLayout.findViewById(R.id.list);
+                    recyclerView.removeAllViews();
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                    recyclerView.setLayoutManager(layoutManager);
+                    recyclerView.setAdapter(breedCardAdapter);
+                    breedCardAdapter.notifyDataSetChanged();
+                }
 
 
 
@@ -86,26 +90,6 @@ public class MainActivityFragment extends Fragment implements BreedCardViewClick
         recyclerView.setAdapter(breedCardAdapter);
 
         return view;
-    }
-
-    @SuppressWarnings("WeakerAccess")
-    public static Bundle createTabArguments(String [] breedList, int position){
-        Bundle bundle = new Bundle();
-
-        bundle.putString(BREED_NAME, breedList[position]);
-        bundle.putInt(POSITION_KEY, position);
-        return bundle;
-    }
-
-    public void updateItems(@Nullable String [] breedList){
-        if(breedList == null)
-            return;
-
-        this.breedList=breedList;
-
-        if(breedCardAdapter != null)
-            breedCardAdapter.notifyDataSetChanged();
-
     }
 
     @Override public void OnBreedCardViewClick (String breedName) {
