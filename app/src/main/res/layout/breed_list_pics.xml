@@ -6,6 +6,6 @@
         android:id="@+id/breed_img"
         android:layout_width="fill_parent"
         android:layout_height="250dp"
-        android:contentDescription="@string/api_bad_response"
+        android:contentDescription="@string/breed_description"
         />
 </LinearLayout>
