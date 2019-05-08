@@ -22,6 +22,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
+        android:id="@+id/fragmentLayout"
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,4 +33,69 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        >
+        <TableRow
+            android:id="@+id/TableRow01"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+
+            >
+
+            <Button
+                android:id="@+id/boton_list"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/manydog"
+
+                />
+
+            <Button
+                android:id="@+id/boton_random"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/random_icon"
+
+                />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/boton_incendio"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+
+
+                />
+
+            <Button
+                android:id="@+id/boton_exit"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/exit_post"
+
+                />
+        </TableRow>
+
+
+
+    </TableLayout>
 </android.support.design.widget.CoordinatorLayout>

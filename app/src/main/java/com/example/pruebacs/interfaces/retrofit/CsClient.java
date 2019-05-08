@@ -16,4 +16,8 @@ public interface CsClient {
             @Path("breed_name") String breed
     );
 
+    @GET("api/breeds/image/random/50")
+    Call<ResponseBody> getBreedRandomImages(
+    );
+
 }

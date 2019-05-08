@@ -73,4 +73,26 @@ public class RetrofitUtils {
         });
         return null;
     }
+
+    public static ResponseBody getBreedRandomImages(final getBreedImagesCallback callback){
+        Call<ResponseBody> call = getRetrofitCsInstance().getBreedRandomImages();
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                if(callback != null)
+                    callback.onGetFinish(response.isSuccessful() ? response.body() : null);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                Log.e("error", t.toString());
+                GeneralUtils.showToast(R.string.api_bad_response);
+                if(callback != null)
+                    callback.onGetFinish(null);
+            }
+        });
+        return null;
+    }
+
 }

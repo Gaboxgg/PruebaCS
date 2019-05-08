@@ -15,4 +15,8 @@ public class BreedUtils {
     public static ResponseBody getBreedPics(final String breed,final getBreedImagesCallback callback){
         return RetrofitUtils.getBreedImages(breed,callback::onGetFinish);
     }
+
+    public static ResponseBody getBreedRandomPics(final getBreedImagesCallback callback){
+        return RetrofitUtils.getBreedRandomImages(callback::onGetFinish);
+    }
 }
